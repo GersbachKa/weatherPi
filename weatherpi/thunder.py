@@ -1,11 +1,5 @@
-from sense_hat import SenseHat
 import time
 
-s = SenseHat()
-
-s.set_rotation(90,redraw=False)
-
-prev = s.get_pixels()
 
 c = [120,120,120]
 b = [0,0,0]
@@ -53,29 +47,28 @@ light4 = [
 ]
 
 
+def thunderAnimation(sense):
+    prev = sense.get_pixels()
 
-for i in range(5):
-    s.set_pixels(light1)
-    time.sleep(.6)
-    s.set_pixels(light2)
-    time.sleep(0.05)
-    s.set_pixels(light3)
-    time.sleep(0.05)
-    s.set_pixels(light2)
-    time.sleep(0.05)
-    s.set_pixels(light3)
-    time.sleep(0.05)
-    s.set_pixels(light4)
-    time.sleep(0.1)
-    s.set_pixels(light3)
-    time.sleep(0.05)
-    s.set_pixels(light2)
-    time.sleep(0.05)
-
-
-
-
+    for i in range(5):
+        sense.set_pixels(light1)
+        time.sleep(.6)
+        sense.set_pixels(light2)
+        time.sleep(0.05)
+        sense.set_pixels(light3)
+        time.sleep(0.05)
+        sense.set_pixels(light2)
+        time.sleep(0.05)
+        sense.set_pixels(light3)
+        time.sleep(0.05)
+        sense.set_pixels(light4)
+        time.sleep(0.1)
+        sense.set_pixels(light3)
+        time.sleep(0.05)
+        sense.set_pixels(light2)
+        time.sleep(0.05)
 
 
+    sense.set_pixels(prev)
+    return
 
-s.set_pixels(prev)

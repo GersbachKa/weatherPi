@@ -7,9 +7,12 @@ from bs4 import BeautifulSoup
 import requests
 from datetime import datetime
 
-sys.path.insert(0,'/home/pi/WeatherStationProject/')
-#from weatherPi import sunny
-
+sys.path.insert(0,'/home/pi/weatherPi/')
+from weatherpi.sunny import sunAnimation
+from weatherpi.cloudy import cloudAnimation
+from weatherpi.rainy import rainAnimation
+from weatherpi.snowy import snowAnimation
+from weatherpi.thunder import thunderAnimation
 
 #Configuration of display-------------------------------
 
@@ -42,7 +45,7 @@ print("Current temperature: {} C".format(cTemp))
 
 #Record weather---------------------------------------------
 
-fileName= '/home/pi/WeatherStationProject/weatherPi/weather_data/'+str(cTime[0])+'_weatherData.csv'
+fileName= '/home/pi/weatherPi/weather_data/'+str(cTime[0])+'_weatherData.csv'
 
 if os.path.exists(fileName):
     with open(fileName,'a',newline='') as f:
@@ -56,22 +59,23 @@ else:
 #-------------------------------------------------------------
 
 #Display on Matrix--------------------------------------------
-    
+
+sense.set_rotation(90,redraw=False)
+#sunAnimation(sense)
+#cloudAnimation(sense)
+#rainAnimation(sense)
+#snowAnimation(sense)
+#thunderAnimation(sense)
+
 #If it is the first of the month, reset all pixels
 if cTime[2]==1 and cTime[3]==0 and cTime[4]==0:
     #first minute of new month
     sense.clear()
     #rotating the matrix properly
-    sense.set_rotation(90)
-    #Don't blind me
     sense.low_light = False
 
 #12:00 pm - display temperature
 if (cTime[3]==12 and cTime[4]==0):
-
-    
-    sense.set_rotation(90,redraw=False)
-    sense.low_light=False
 
     rgbVal = [0,0,0]
     if cTemp <=BLUE_TEMP:

@@ -1,11 +1,5 @@
-from sense_hat import SenseHat
 import time
 
-sense = SenseHat()
-
-sense.set_rotation(90,redraw=False)
-
-prev = sense.get_pixels()
 
 c = [100,100,100]
 b = [0,0,0]
@@ -74,19 +68,24 @@ snow6 = [
 
 sleeptime = .2083
 
-for i in range(4):
-    sense.set_pixels(snow1)
-    time.sleep(sleeptime)
-    sense.set_pixels(snow2)
-    time.sleep(sleeptime)
-    sense.set_pixels(snow3)
-    time.sleep(sleeptime)
-    sense.set_pixels(snow4)
-    time.sleep(sleeptime)
-    sense.set_pixels(snow5)
-    time.sleep(sleeptime)
-    sense.set_pixels(snow6)
-    time.sleep(sleeptime)
+def snowAnimation(sense):
+    prev = sense.get_pixels()
+
+    for i in range(4):
+        sense.set_pixels(snow1)
+        time.sleep(sleeptime)
+        sense.set_pixels(snow2)
+        time.sleep(sleeptime)
+        sense.set_pixels(snow3)
+        time.sleep(sleeptime)
+        sense.set_pixels(snow4)
+        time.sleep(sleeptime)
+        sense.set_pixels(snow5)
+        time.sleep(sleeptime)
+        sense.set_pixels(snow6)
+        time.sleep(sleeptime)
 
 
-sense.set_pixels(prev)
+    sense.set_pixels(prev)
+
+    return

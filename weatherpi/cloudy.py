@@ -1,11 +1,5 @@
-from sense_hat import SenseHat
 import time
 
-s = SenseHat()
-
-s.set_rotation(90,redraw=False)
-
-prev = s.get_pixels()
 
 c = [193,190,186]
 b = [0,0,0]
@@ -92,23 +86,27 @@ cloud8 = [
 
 sleeptime = .3125
 
-for i in range(2):
-    s.set_pixels(cloud1)
-    time.sleep(sleeptime)
-    s.set_pixels(cloud2)
-    time.sleep(sleeptime)
-    s.set_pixels(cloud3)
-    time.sleep(sleeptime)
-    s.set_pixels(cloud4)
-    time.sleep(sleeptime)
-    s.set_pixels(cloud5)
-    time.sleep(sleeptime)
-    s.set_pixels(cloud6)
-    time.sleep(sleeptime)
-    s.set_pixels(cloud7)
-    time.sleep(sleeptime)
-    s.set_pixels(cloud8)
-    time.sleep(sleeptime)
+def cloudAnimation(sense):
+    prev = sense.get_pixels()
+
+    for i in range(2):
+        sense.set_pixels(cloud1)
+        time.sleep(sleeptime)
+        sense.set_pixels(cloud2)
+        time.sleep(sleeptime)
+        sense.set_pixels(cloud3)
+        time.sleep(sleeptime)
+        sense.set_pixels(cloud4)
+        time.sleep(sleeptime)
+        sense.set_pixels(cloud5)
+        time.sleep(sleeptime)
+        sense.set_pixels(cloud6)
+        time.sleep(sleeptime)
+        sense.set_pixels(cloud7)
+        time.sleep(sleeptime)
+        sense.set_pixels(cloud8)
+        time.sleep(sleeptime)
 
 
-s.set_pixels(prev)
+    sense.set_pixels(prev)
+    return

@@ -1,11 +1,4 @@
-from sense_hat import SenseHat
 import time
-
-s = SenseHat()
-
-s.set_rotation(90,redraw=False)
-
-prev = s.get_pixels()
 
 c = [100,100,100]
 b = [0,0,0]
@@ -95,23 +88,26 @@ rain8 = [
 
 sleeptime = .15625
 
-for i in range(4):
-    s.set_pixels(rain1)
-    time.sleep(sleeptime)
-    s.set_pixels(rain2)
-    time.sleep(sleeptime)
-    s.set_pixels(rain3)
-    time.sleep(sleeptime)
-    s.set_pixels(rain4)
-    time.sleep(sleeptime)
-    s.set_pixels(rain5)
-    time.sleep(sleeptime)
-    s.set_pixels(rain6)
-    time.sleep(sleeptime)
-    s.set_pixels(rain7)
-    time.sleep(sleeptime)
-    s.set_pixels(rain8)
-    time.sleep(sleeptime)
+def rainAnimation(sense):
+    prev = sense.get_pixels()
+
+    for i in range(4):
+        sense.set_pixels(rain1)
+        time.sleep(sleeptime)
+        sense.set_pixels(rain2)
+        time.sleep(sleeptime)
+        sense.set_pixels(rain3)
+        time.sleep(sleeptime)
+        sense.set_pixels(rain4)
+        time.sleep(sleeptime)
+        sense.set_pixels(rain5)
+        time.sleep(sleeptime)
+        sense.set_pixels(rain6)
+        time.sleep(sleeptime)
+        sense.set_pixels(rain7)
+        time.sleep(sleeptime)
+        sense.set_pixels(rain8)
+        time.sleep(sleeptime)
 
 
-s.set_pixels(prev)
+    sense.set_pixels(prev)
