@@ -13,15 +13,20 @@ from weatherpi.cloudy import cloudAnimation
 from weatherpi.rainy import rainAnimation
 from weatherpi.snowy import snowAnimation
 from weatherpi.thunder import thunderAnimation
+from weatherpi.unknown import unknownAnimation
 
 #Configuration of display-------------------------------
 
 #Brightness control. Max of 1
 BRIGHTNESS = 0.4
 
+#The time at which animations stop playing and the duration of that time.
+SLEEP_START=1
+SLEEP_DURATION=8
+
 #Displayed Pixel will be red if above RED_TEMP. It will transition to blue as the temp aproaches BLUE_TEM$
 #Below BLUE_TEMP, pixel will be white (Usually indicating freezing)
-RED_TEMP = 40.0
+RED_TEMP = 32.0
 BLUE_TEMP = 0.0
 #-------------------------------------------------------
 
@@ -61,11 +66,6 @@ else:
 #Display on Matrix--------------------------------------------
 
 sense.set_rotation(90,redraw=False)
-#sunAnimation(sense)
-#cloudAnimation(sense)
-#rainAnimation(sense)
-#snowAnimation(sense)
-#thunderAnimation(sense)
 
 #If it is the first of the month, reset all pixels
 if cTime[2]==1 and cTime[3]==0 and cTime[4]==0:
@@ -96,3 +96,36 @@ if (cTime[3]==12 and cTime[4]==0):
             sense.set_pixel(cDay,i,tuple(rgbVal))
             break
     
+
+
+#Display weather status
+
+unknownWeatherFile = "/home/pi/weatherPi/weather_data/unknownWeatherConditions.txt"
+
+if not(cTime[3] in range(SLEEP_START,SLEEP_START+SLEEP_DURATION) or cTime[3]+24 in range(SLEEP_START,SLEEP_START+SLEEP_DURATION)):
+    #Not within the sleep time
+    if cConditions in ['Showers in the Vicinity','Rain']:
+        rainAnimation(sense)
+
+    elif cConditions in ['Cloudy','Mostly Cloudy','Fog']:
+        cloudAnimation(sense)
+
+    elif cConditions in ['Fair','Sunny','Partly Cloudy']:
+        sunAnimation(sense)
+
+    elif cConditions in ['Snow']:
+        snowAnimation(sense)
+
+    elif cCondtions in ['Thunderstorm']:
+        thunderAnimation(sense)
+
+    else:
+        #un-assigned weather condition
+        unknownAnimation(sense)
+
+        if os.path.exists(unknownWeatherFile):
+            with open(unknownWeatherFile,'a') as f:
+                f.write(cConditions+str('\n'))
+        else:
+            with open(unknwonWeatherFile,'w') as f:
+                f.write(cConditions+str('\n'))
